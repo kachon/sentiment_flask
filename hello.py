@@ -1,6 +1,7 @@
 import os
 from flask import Flask, jsonify
 from sklearn.datasets import fetch_20newsgroups
+from yt import *
 
 app = Flask(__name__)
 
@@ -18,7 +19,7 @@ def test():
 
 @app.route('/channel/<id>')
 def channel(id):
-    return id
+    return jsonify(results=get_yt_channel(id))
 
 if __name__ == '__main__':
     app.run(debug=True)
