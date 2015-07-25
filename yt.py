@@ -20,7 +20,6 @@ class Yt(object):
     http = httplib2.Http()
     http = credentials.authorize(http)
     self.youtube = build(YOUTUBE_DATA_API_NAME, YOUTUBE_DATA_API_VERSION, http=http)
-    self.clf = SentimentClf()
 
   def get_channel(self, channel_id):
     print "get_yt_data"
@@ -55,12 +54,6 @@ class Yt(object):
     comments = self.get_videos_comment(vids)
     return comments
 
-  def predict_channel_comments(self, channel_id):
-    comments = self.get_channel_comments(channel_id)
-    for comment in comments:
-      proba = self.clf.predict(comment["comment"])
-      comment["proba"] = proba
-    return comments
 
 
 

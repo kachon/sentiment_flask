@@ -4,7 +4,13 @@ from sklearn.datasets import fetch_20newsgroups
 from yt import *
 from sentiment import *
 from flask import request
+from sentiment import SentimentClf
+from yt import Yt
+import cPickle
+import gzip
 
+yt_obj = Yt()
+clf_1 = cPickle.load( gzip.open( "clf_pipeline.pklz", "rb" ) )
 app = Flask(__name__)
 
 @app.route('/')
@@ -31,6 +37,18 @@ def predict():
     return jsonify(results=SentimentClf().predict(query).tolist())
   else:
     return jsonify(results=[])
+
+@app.route('/predict_channel/<id>')
+def predict_channel(id):
+  proba = predict_channel_comments(id)
+  return jsonify(results=proba)
+
+def predict_channel_comments(channel_id):
+  comments = yt_obj.get_channel_comments(channel_id)
+  for comment in comments:
+    proba = clf_1.predict_proba([comment["comment"]])
+    comment["proba"] = proba[0].tolist()
+  return comments
 
 if __name__ == '__main__':
   app.run(debug=True)
