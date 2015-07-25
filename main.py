@@ -28,14 +28,14 @@ def test():
 
 @app.route('/channel/<id>')
 def channel(id):
-  return jsonify(results=Yt().get_channel(id))
+  return jsonify(results=yt_obj.get_channel(id))
 
 @app.route('/predict')
 def predict():
   query = request.args.get('query')
   print "query %s" % (query)
   if query:
-    return jsonify(results=SentimentClf().predict(query).tolist())
+    return jsonify(results=clf_1.predict(query).tolist())
   else:
     return jsonify(results=[])
 
