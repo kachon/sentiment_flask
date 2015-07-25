@@ -10,7 +10,8 @@ import cPickle
 import gzip
 
 yt_obj = Yt()
-clf_1 = cPickle.load( gzip.open( "clf_pipeline.pklz", "rb" ) )
+# clf_1 = cPickle.load( gzip.open( "clf_pipeline.pklz", "rb" ) )
+clf_1 = cPickle.load( open( "clf_pipeline.pkl", "rb" ) )
 app = Flask(__name__)
 
 @app.route('/')
