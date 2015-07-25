@@ -23,7 +23,7 @@ class Yt(object):
 
   def get_channel(self, channel_id):
     print "get_yt_data"
-    return self.youtube.channels().list(part='snippet', id=youtube_id).execute()
+    return self.youtube.channels().list(part='snippet', id=channel_id).execute()
 
   def get_videos(self, channel_id):
     print "get_yt_videos"
