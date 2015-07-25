@@ -21,7 +21,7 @@ def test():
 
 @app.route('/channel/<id>')
 def channel(id):
-  return jsonify(results=Yt().get_yt_channel(id))
+  return jsonify(results=Yt().get_channel(id))
 
 @app.route('/predict')
 def predict():
