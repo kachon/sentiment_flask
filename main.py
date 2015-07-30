@@ -6,6 +6,7 @@ from sentiment import *
 from flask import request
 from sentiment import SentimentClf
 from yt import Yt
+from flask import render_template
 import cPickle
 import gzip
 
@@ -43,6 +44,10 @@ def predict():
 def predict_channel(id):
   proba = predict_channel_comments(id)
   return jsonify(results=proba)
+
+@app.route('/main/<name>')
+def main(name=None):
+  return render_template('main_bs.html', name=name)
 
 def predict_channel_comments(channel_id):
   comments = yt_obj.get_channel_comments(channel_id)
